@@ -1,0 +1,154 @@
+package uml;
+
+import java.util.Scanner;
+
+class Book
+{
+	private String bookTitle,author,ISBN;
+	private int no_of_copies;
+	public String getBookTitle() {
+		return bookTitle;
+	}
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getISBN() {
+		return ISBN;
+	}
+	public void setISBN(String iSBN) {
+		ISBN = iSBN;
+	}
+	public int getNo_of_copies() {
+		return no_of_copies;
+	}
+	public void setNo_of_copies(int no_of_copies) {
+		this.no_of_copies = no_of_copies;
+	}
+	
+	Book(String title,String author,String ISBN,int numberOfCopies)
+	{
+		this.bookTitle=title;
+		this.author=author;
+		this.ISBN=ISBN;
+		this.no_of_copies=numberOfCopies;
+	}
+	 void display()
+	{
+		System.out.println("book title is "+bookTitle);
+		System.out.println(" author is "+author);
+		System.out.println(" identity is "+ISBN);
+		System.out.println(" no. of copies available are "+no_of_copies);
+	}
+	
+}
+class BookStore
+{
+	
+	private Book[] Books = new Book[10];
+	void BookStoreAddBook()
+	{
+		Books[0]= new Book("book1","author1","I1",4);
+		Books[1]= new Book("book2","author2","I2",5);
+		Books[2]= new Book("book3","author3","I3",6);
+		Books[3]= new Book("book4","author4","I4",6);
+		Books[4]= new Book("book5","author5","I5",3);
+		Books[5]= new Book("book6","author6","I6",2);
+		Books[6]= new Book("book7","author7","I7",5);
+		Books[7]= new Book("book8","author8","I8",3);
+		Books[8]= new Book("book9","author9","I9",7);
+		Books[9]= new Book("book10","author10","I10",8);
+		
+	}
+	
+    
+    void sell(String title,int copyToSell)
+    {
+    	int flag=0;
+    	for(int i=0;i<Books.length;i++)
+    	{
+    		if(Books[i].getBookTitle().equalsIgnoreCase(title))
+    		{
+    			if(Books[i].getNo_of_copies()>=copyToSell)
+    			{
+    				flag=1;
+    				break;
+    			}
+        	}  
+    		if(flag==0)
+    		{
+    			System.out.println("book not found");
+    			break;
+    		}
+    		else
+    		{
+    			Books[i].setNo_of_copies(Books[i].getNo_of_copies()-copyToSell);
+    		}
+    	}
+    }
+    
+    void order(String ISBN,int orderedCopies)
+    {
+    	boolean search=false;
+    	for(int i=0;i<Books.length;i++)
+    	{
+    		if(Books[i].getISBN().equalsIgnoreCase(ISBN))
+    		{
+    			if(Books[i].getNo_of_copies()>=orderedCopies)
+    		   	search=true;
+         		Books[i].setNo_of_copies(Books[i].getNo_of_copies()+orderedCopies);
+         		break;
+    			
+        	}  
+    	}
+    		if(!search) {
+    		System.out.println("book not found");}
+       }
+    
+    void display()
+    {
+    	for(Book book : Books)
+    	{
+    		book.display();
+    	}
+    }
+}
+
+public class BookStoreApp {
+public static void main(String args[])
+{
+	BookStore obj = new BookStore();
+	obj.BookStoreAddBook();
+	Scanner sc=new Scanner(System.in);
+	System.out.println("1.display all the books");
+	System.out.println("2.order books");
+	System.out.println("3.sell books");
+	int ch=sc.nextInt();
+	switch(ch)
+	{
+	case 1: obj.display();
+	        break;
+	case 2: System.out.println("enter ISBN number");
+	        String ISBN=sc.next();
+	        System.out.println("enter number of copies");
+	        int orderedCopies=sc.nextInt();
+	        obj.order(ISBN, orderedCopies);
+	        break;
+	case 3: System.out.println("enter book title");
+	        String title=sc.next();
+	        System.out.println("enter number of copies");
+	        int copyToSell=sc.nextInt();
+	        obj.sell(title, copyToSell);
+	        break;
+	case 4: System.out.println("wrong choice entered");
+	        break;
+	
+	
+	}
+}
+}

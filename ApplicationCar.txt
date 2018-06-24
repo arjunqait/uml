@@ -1,0 +1,136 @@
+package uml;
+
+import java.util.Scanner;
+
+
+class Vehicle
+ {
+ int noOfWheels;
+ int noOfPassenger;
+ int model;
+ String make;
+ void display(int noOfWheels,int noOfPassengers,int model,String make)
+ {
+	 this.noOfWheels=noOfWheels;
+	 this.noOfPassenger=noOfPassengers;
+	 this.model=model;
+	 this.make=make;
+	System.out.println("car name "+make+"is "+noOfWheels+" wheeler "+"with passenger capacity "+noOfPassenger+" and model number "+model);
+ }
+}
+class Car extends Vehicle
+{
+	int noOfDoor;
+	int noOfWheels;
+	 int noOfPassenger;
+	 int model;
+	 String make;
+	void display(int noOfWheels,int noOfPassengers,int model,String make,int noOfDoors)
+	{
+	 		 this.noOfWheels=noOfWheels;
+	 		 this.noOfPassenger=noOfPassengers;
+	 		 this.model=model;
+	 		 this.make=make;
+	 		 this.noOfDoor=noOfDoors;
+	 		 super.display(noOfWheels, noOfPassengers, model, make);
+		System.out.println("number of doors in car are "+noOfDoor);
+	}
+}
+
+class Convertible extends Car
+{
+	boolean isHoodOpen;
+	int noOfWheels;
+	 int noOfPassenger;
+	 int model;
+	 String make;
+	void display(int noOfWheels,int noOfPassengers,int model,String make,boolean n)
+	{   
+		this.noOfWheels=noOfWheels;
+		this.noOfPassenger=noOfPassengers;
+		this.model=model;
+		this.make=make;
+		isHoodOpen=n;
+	    super.display(noOfWheels,noOfPassenger,model,make);
+		isHoodOpen=n;
+		if(isHoodOpen==true)
+		{
+	    System.out.println("for convertible car hood is open");
+        }
+		else
+		{
+			System.out.println("for convertible car hood is closed");	
+		}
+	}
+}
+
+
+class SportCar extends Car
+{
+	int noOfDoor=2;
+	int noOfWheels;
+	 int noOfPassenger;
+	 int model;
+	 String make;
+	void display(int noOfWheels,int noOfPassengers,int model,String make)
+	{
+		this.noOfWheels=noOfWheels;
+		this.noOfPassenger=noOfPassengers;
+		this.model=model;
+		this.make=make;
+        super.display(noOfWheels,noOfPassenger,model,make);
+	    System.out.println("number of doors in sports car are "+noOfDoor);
+	}
+}
+
+public class ApplicationCar {
+
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter the name of car");
+		String make=sc.nextLine();
+		System.out.println("enter the no. of passengers it can support upto");
+		int passenger=sc.nextInt();
+		System.out.println("enter the model number");
+		int model=sc.nextInt();
+		System.out.println("enter the no. of wheels");
+		int wheels=sc.nextInt();
+		System.out.println("choose serial number to display details");
+		System.out.println("1.car");
+		System.out.println("2.vehical");
+		System.out.println("3.convertible car");
+		System.out.println("4.sports car");
+		int ch=sc.nextInt();
+		switch(ch)
+		{
+		case 1: Car obj=new Car();
+		        System.out.println("enter number of doors");
+		        int d=sc.nextInt();
+		        obj.display(wheels,passenger,model,make,d);
+		        break;
+		case 2: Vehicle obj1=new Vehicle();
+		        obj1.display(wheels,passenger,model,make);
+		        break;
+		case 3: System.out.println("is hood open for convertible car ");
+		        System.out.println("YES-1 / NO-any number");
+		        int s=sc.nextInt();
+		        if(s==1)
+		        {
+			    Convertible obj2=new Convertible();
+		        obj2.display(wheels,passenger,model,make,true);
+		        }
+		        else
+		        {
+		    	Convertible obj2=new Convertible();
+			    obj2.display(wheels,passenger,model,make,false);    	
+		        }
+		        break;
+		case 4: SportCar obj3=new SportCar();
+		        obj3.display(wheels,passenger,model,make);
+	            break;
+	    default:System.out.print("wrong choice");
+	    break;
+		}
+}
+}
